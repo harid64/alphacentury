@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .calculator {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 320px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .calculator input[type="number"] {
+            display: block;
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .calculator button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 45%;
+            /* Adjust button width */
+            margin-right: 5px;
+            /* Add margin between buttons */
+        }
+
+        .calculator button:last-child {
+            margin-right: 0;
+            /* Remove margin for the last button */
+        }
+
+        .calculator button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            text-align: left;
+            display: none;
+        }
+
+        .result p {
+            margin: 10px 0;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .result span {
+            font-weight: normal;
+            color: #111010;
+        }
+
+        @media (max-width: 480px) {
+
+            /* Adjust styles for small screens */
+            .calculator button {
+                width: 90%;
+                margin-right: 0;
+                margin-top: 5px;
+                /* Add margin between buttons on small screens */
+            }
+        }
+
+        iframe {
+            padding: 20px;
+            width: 500px;
+            height: 250px;
+            margin-right: 90px;
+        }
+    </style>
+    <link rel="icon" href="img/cimg.jpg">
+</head>
+
+<body>
+    <iframe
+        src="https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vQBkec6ZFlLQIS42DfKIWsNXCewkbi_zjfMLW0AzIVfKLdgeKXZT3X0vMC3rfH1ktfGoDjnjRbM8mvL/pubhtml"
+        frameborder="0"></iframe><br />
+    <div class="calculator">
+        <input type="number" id="high_entry" placeholder="High">
+        <input type="number" id="low_entry" placeholder="Low">
+        <input type="number" id="close_entry" placeholder="Close">
+        <button onclick="calculate()">Calculate</button>
+        <div class="result">
+            <p>Central Line: <span id="central_line"></span></p>
+            <p>Top Line: <span id="top_line"></span></p>
+            <p>Lower Line: <span id="lower_line"></span></p>
+            <p>Central Difference: <span id="cdif"></span></p>
+        </div>
+    </div>
+    <script>
+        function calculate() {
+            const high = parseFloat(document.getElementById('high_entry').value);
+            const low = parseFloat(document.getElementById('low_entry').value);
+            const close = parseFloat(document.getElementById('close_entry').value);
+
+            if (isNaN(high) || isNaN(low) || isNaN(close)) {
+                alert("Please enter valid numeric values.");
+                return;
+            }
+
+            const central_line = (high + low + close) / 3;
+            const lower_line = (high + low) / 2;
+
+            let cdif;
+            if (central_line > lower_line) {
+                cdif = central_line - lower_line;
+            } else {
+                cdif = lower_line - central_line;
+            }
+
+            let top_line;
+            if (lower_line > central_line) {
+                top_line = central_line - cdif;
+            } else if (central_line > lower_line) {
+                top_line = central_line + cdif;
+            }
+
+            document.getElementById('central_line').textContent = central_line.toFixed(2);
+            document.getElementById('lower_line').textContent = lower_line.toFixed(2);
+            document.getElementById('top_line').textContent = top_line.toFixed(2);
+            document.getElementById('cdif').textContent = cdif.toFixed(2);
+
+            // Show the result
+            document.querySelector('.result').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

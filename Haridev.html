@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>haridev</title>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(131, 52, 249);
+            color: white;
+        }
+
+        header {
+            padding: 30px;
+            background-color: black;
+            text-align: center;
+        }
+
+        section {
+            font-size: large;
+            margin-top: 200px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 30px;
+            background-color: black;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Haridev</h1>
+    </header>
+    <section>
+        <p>Haridev is an Indian Businessman and Chess player <br>
+            He is an avid Chess player and Music enhusiasts. He ventured into business
+            from young age. His Business is diversified into many fields from Technology to Entertainment.</p>
+    </section>
+    <footer>
+        <span id="c">&copy; Copyright </span>
+    </footer>
+    <script>
+        var date = document.getElementById('c');
+        current = new Date();
+        date.innerHTML += current.getFullYear();
+    </script>
+</body>
+
+</html>
